@@ -1,11 +1,10 @@
 version: '3.8'
 
 services:
-  web:
+  app:
     build: .
-    container_name: php-app
     ports:
-      - "8090:80"
+      - "8080:80"
     volumes:
       - .:/var/www/html
-    restart: always
+    container_name: php-app
