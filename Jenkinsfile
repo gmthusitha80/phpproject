@@ -1,6 +1,5 @@
 pipeline {
     agent any
-agent any
     environment {
         DOCKERHUB_CREDENTIALS = credentials('dockerhub-credentials') // Jenkins credential ID
         IMAGE_NAME = 'gmthusitha/phpproject'
