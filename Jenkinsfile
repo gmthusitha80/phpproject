@@ -11,13 +11,12 @@ pipeline {
             }
         }
 	 
-	 stage('Build Docker Image') {
+	stage('Deploy with Docker-Compose') {
             steps {
-                script {
-                    sh 'docker build -t $IMAGE_NAME .'
-                }
+                sh 'docker-compose down'
+                sh 'docker-compose up -d'
             }
-        }        
+        }
     }
     post {
         success {
