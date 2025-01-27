@@ -19,12 +19,11 @@ pipeline {
         }
 	stage('Push to Docker Hub') {
             steps {
-                script {
-                    docker.withRegistry('', DOCKERHUB_CREDENTIALS) {
-                        sh 'docker push $IMAGE_NAME'
-                    }
-                }
+                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+                sh 'docker push $IMAGE_NAME'
             }
+             
+            
         }
 	 
 	stage('Deploy with Docker-Compose') {
