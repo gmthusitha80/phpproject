@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        DOCKERHUB_CREDENTIALS = credentials('dockerhub-credentials') // Jenkins credential ID
+        DOCKERHUB_CREDENTIALS = 'dockerhub-credentials' // Jenkins credential ID
         IMAGE_NAME = 'gmthusitha/phpproject'
     }    
     stages {
@@ -20,13 +20,13 @@ pipeline {
 	
         stage('Push to Docker Hub') {
             steps {
-                script {
-                    // Use the credentials when pushing to Docker Hub
-                    docker.withRegistry('https://registry.hub.docker.com/', DOCKERHUB_CREDENTIALS) {
-                        sh 'docker push $IMAGE_NAME'
-                    }
-                }
-            }
+                withCredentials([usernamePassword(credentialsId: DOCKERHUB_CREDENTIALS, usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+                    sh """
+                        echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
+                        docker tag ${LOCAL_IMAGE} ${IMAGE_NAME}
+                        docker push ${IMAGE_NAME}
+                        docker logout
+                    """
         }
             
         
