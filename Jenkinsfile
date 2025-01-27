@@ -17,6 +17,15 @@ pipeline {
                 }
             }
         }
+	stage('Push to Docker Hub') {
+            steps {
+                script {
+                    docker.withRegistry('', DOCKERHUB_CREDENTIALS) {
+                        sh 'docker push $IMAGE_NAME'
+                    }
+                }
+            }
+        }
 	 
 	stage('Deploy with Docker-Compose') {
             steps {
