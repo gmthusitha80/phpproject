@@ -22,7 +22,7 @@ pipeline {
             steps {
                 script {
                     // Use the credentials when pushing to Docker Hub
-                    docker.withRegistry('', DOCKERHUB_CREDENTIALS) {
+                    docker.withRegistry('https://registry.hub.docker.com/', DOCKERHUB_CREDENTIALS) {
                         sh 'docker push $IMAGE_NAME'
                     }
                 }
