@@ -27,6 +27,7 @@ pipeline {
                         docker push ${IMAGE_NAME}
                         docker logout
                     """
+		}
         }
             
         
