@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        DOCKERHUB_CREDENTIALS = 'dockerhub-credentials' // Jenkins credential ID
+        DOCKERHUB_CREDENTIALS = credentials('dockerhub-credentials') // Jenkins credential ID
         IMAGE_NAME = 'gmthusitha/phpproject'
     }    
     stages {
@@ -22,7 +22,7 @@ pipeline {
             steps {
                 script {
                     // Use the credentials when pushing to Docker Hub
-                    docker.withRegistry('https://registry.hub.docker.com', "${DOCKERHUB_CREDENTIALS}") {
+                    docker.withRegistry('https://registry.hub.docker.com', DOCKERHUB_CREDENTIALS) {
                         sh 'docker push $IMAGE_NAME'
                     }
                 }
