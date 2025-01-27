@@ -10,6 +10,13 @@ pipeline {
                 git branch: 'main', url: 'https://github.com/gmthusitha80/phpproject.git'
             }
         }
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    sh 'docker build -t $IMAGE_NAME .'
+                }
+            }
+        }
 	 
 	stage('Deploy with Docker-Compose') {
             steps {
