@@ -1,3 +1,3 @@
 <?php
-echo "Success webhook o";
+echo "Success web o";
 ?>
