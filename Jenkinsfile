@@ -27,10 +27,19 @@ pipeline {
                 }
             }
         }
+	 stage('Deploy with Docker-Compose') {
+            steps {
+                sh 'docker-compose down'
+                sh 'docker-compose up -d'
+            }
+        }
     }
     post {
-        always {
-            echo 'Pipeline execution completed'
+        success {
+            echo 'Build and deployment successful!'
+        }
+        failure {
+            echo 'Build or deployment failed!'
         }
     }
 }
