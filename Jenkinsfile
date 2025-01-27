@@ -23,7 +23,7 @@ pipeline {
                 script {
                     // Use the credentials when pushing to Docker Hub
                     docker.withRegistry('', DOCKERHUB_CREDENTIALS) {
-                        sh 'docker push $IMAGE_NAME'
+                        sh 'docker push $IMAGE_NAME:latest'
                     }
                 }
             }
