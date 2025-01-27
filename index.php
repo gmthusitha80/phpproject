@@ -1,3 +1,3 @@
 <?php
-echo "Sucggggcesjujjjs-- web o";
+echo "Success fully configured";
 ?>
