@@ -17,14 +17,19 @@ pipeline {
                 }
             }
         }
-	stage('Push to Docker Hub') {
+	
+        stage('Push to Docker Hub') {
             steps {
-                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-                sh 'docker push $IMAGE_NAME'
+                script {
+                    // Use the credentials when pushing to Docker Hub
+                    docker.withRegistry('https://index.docker.io/v1/', DOCKERHUB_CREDENTIALS) {
+                        sh 'docker push $IMAGE_NAME'
+                    }
+                }
             }
-             
+        }     
             
-        }
+        
 	 
 	stage('Deploy with Docker-Compose') {
             steps {
